@@ -1,4 +1,23 @@
+==Main Idea
 - One-click cryptocurrency exchange.
 - Access to unknown cryptocurrencies.
 - Use of Poloniex or Kraken API.
 - No user creation... let's think in something smart as fuck :-).
+
+
+==Initial front end proposal workflow.
+1) Select the pair exchange from 2 drop down list. (4 clicks)
+2) Put the amount of coins to be exchanged. (1 click)
+3) Automatically display an estimated of coins to be received and the estimated time.
+4) Put the address to receive the coins (1 Click) 
+5) Display the address where the user will send the coins, as well QR.
+6) Inform the user when teilen received the coins
+7) Inform the user when he received the coins. Sent an email? Sms? Display it in same page? Do not inform?
+
+
+==Open topics:
+•	Between the steps 6 and 7 we make the exchange in either Kraken, Poloniex or in future from our own altcoins and send the new coins to   the user subtracting our commission.
+•	At least 6 clicks are required in previous steps, should be reduced somehow. Keep it as simple as possible.
+•	Initially the earnings would be kept in the external exchange?
+•	Which exchange account will be used? Create a teilen account?
+•	Create an English version?
