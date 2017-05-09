@@ -1,0 +1,4 @@
+- One-click cryptocurrency exchange.
+- Access to unknown cryptocurrencies.
+- Use of Poloniex or Kraken API.
+- No user creation... let's think in something smart as fuck :-).
