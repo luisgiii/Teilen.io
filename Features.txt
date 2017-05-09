@@ -6,7 +6,7 @@
 - Initally focused on latin America market, spanish language.
 
 
-==Initial front end proposal workflow.
+==Initial front end proposal workflow.**
 1) Select the pair exchange from 2 drop down list. (4 clicks)
 2) Put the amount of coins to be exchanged. (1 click)
 3) Automatically display an estimated of coins to be received and the estimated time.
@@ -15,6 +15,7 @@
 6) Inform the user when teilen received the coins
 7) Inform the user when he received the coins. Sent an email? Sms? Display it in same page? Do not inform?
 
+** I propose to make all of this functional from a script in some manual form first, and then think + integrate the UX philosophy of the low amount of clicks. That "one-click" statement is feasible (actually I'll prefer to keep it in a marketing point of view :-)).
 
 ==Open topics:
 •	Between the steps 6 and 7 we make the exchange in either Kraken, Poloniex or in future from our own altcoins and send the new coins to   the user subtracting our commission.
