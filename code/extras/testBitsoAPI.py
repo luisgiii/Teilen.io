@@ -56,9 +56,9 @@ def CurrentFundsRequester():
     # Send request
     response = requests.get("https://api.bitso.com/v3/balance/",
     headers={"Authorization": auth_header})
-
+    #print response.text
     json_data = json.loads(response.text)
-    return json_data["success"], json_data["payload"]["balances"][0]["available"]
+    return json_data["success"], json_data["payload"]["balances"][2]["available"]
 
 def PostMethodTest():
     print "Inside POST method test."
@@ -79,6 +79,8 @@ def PostMethodTest():
     # Send request
     response = requests.post("https://api.bitso.com/v3/phone_number/",
     headers={"Authorization": auth_header}, json=json_payload)
+
+    print response.text
 
 def PlaceBuyOrder(buyAmount):
     print "Placing Buying order"
@@ -129,8 +131,8 @@ def PlaceSellOrder(sellAmount):
 
 
 def main():
-    Ticker()
+    success, ethValue = CurrentFundsRequester()
+    print
 
 if __name__ == "__main__":
     main()
-
