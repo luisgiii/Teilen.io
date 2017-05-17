@@ -1,0 +1,27 @@
+div.valuesParentBlock {
+	position: relative;
+    width: 50%;
+    height: 70px;
+    margin: auto;
+    border: 3px solid #73AD21;
+}
+
+div.firstValue {
+	background: #FF00FF;
+	position: absolute;
+	left: 30px;
+	margin-top: 10px;
+}
+
+div.secondValue {
+	background: #FF00FF;
+	position: absolute;
+	right: 30px;
+	margin-top: 10px;
+}
+
+div.buttonParentBlock {
+	position: relative;
+	text-align: center;
+	margin-top: 40px;
+}
