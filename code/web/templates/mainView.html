@@ -17,7 +17,10 @@
     {{ value1 }}
     {% endif %}
 		<div class = "secondValue">
-		Estimated eth: <h3 name="estimated_value"> 0 </h3>
+		Estimated eth:
+    {% if value2 %}
+    {{ value2 }}
+    {% endif %}
 		</div>
   </form>
   <form>
