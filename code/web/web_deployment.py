@@ -1,13 +1,24 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
-@app.route("/", methods=['POST'])
+#Global variables for very specific use. Not for production...
+cryptoAmount = ""
+convertedAmount = ""
+
+@app.route("/")
 def main_page():
-    getCrypto = request.form['exchange'] == 'Get ETH'
-    firstValue = request.form['firstCrypto']
-    secondValue = request.form['secondCrypto']
-    
-    return render_template('mainView.html')
+    global cryptoAmount, convertedAmount
+
+    cryptoValue = request.args.get('firstCrypto')
+    buyButton = request.args.get('exchange')
+    if cryptoValue != None:
+        cryptoAmount = cryptoValue
+        print "Stored cdc: " + cryptoAmount
+        #API call to convert to the other crypto.
+
+    if buyButton == "Get":
+        print "Buy: " + cryptoAmount
+    return render_template('mainView.html', value1 = cryptoAmount)
 
 if __name__ == "__main__":
     app.run()
