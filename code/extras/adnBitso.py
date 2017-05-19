@@ -5,9 +5,8 @@ import json
 import requests
 
 def signIt(theRequest):
-    bitso_key = "prjAWZWBmy"
-    bitso_secret = "057a5a6ac0bb3fe4e4d1952aa4d5f8c3"
-   # bitso_key,bitso_secret  = open("~/adnBitsoCredentials","r")
+    bitso_key = ""
+    bitso_secret = ""
     print "Signing..."
     nonce =  str(int(round(time.time() * 1000)))
     http_method = "GET"
