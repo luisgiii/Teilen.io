@@ -4,13 +4,13 @@ import hashlib
 import json
 import requests
 
-def signIt(theRequest):
+def getEndpoint(theEndpoint):
     bitso_key = ""
     bitso_secret = ""
-    print "Signing..."
+
     nonce =  str(int(round(time.time() * 1000)))
     http_method = "GET"
-    request_path = "/v3/"+theRequest+"/"
+    request_path = "/v3/"+theEndpoint+"/"
     json_payload = ""
 
     #Create signature
@@ -21,19 +21,35 @@ def signIt(theRequest):
     auth_header = 'Bitso %s:%s:%s' % (bitso_key, nonce, signature)
 
     # Send request
-    response = requests.get("https://api.bitso.com/v3/"+theRequest+"/", headers={"Authorization": auth_header})#
+    response = requests.get("https://api.bitso.com/v3/"+theEndpoint+"/", headers={"Authorization": auth_header})#
 
     json_data = json.loads(response.text)
 
-    print json_data["success"], json_data["payload"]["balances"][3]["total"]
-
-  #  print response.content
+    return json_data
 
 def asd():
     print ""
 
 def main():
-    signIt("balance")
+    x=0
+    btc = 0
+    eth = 0
+    while (1):
+        bal = getEndpoint("ticker")
+        if bal["success"] == True: 
+            btcTmp = bal["payload"][0]["last"]
+            ethTmp = bal["payload"][1]["last"]
+
+            if btcTmp <> btc:    
+                #print btc
+                print bal["payload"][0]["created_at"]+"\t \t"+ bal["payload"][0]["book"],bal["payload"][0]["last"]
+                btc = btcTmp
+            if ethTmp <> eth:
+                #print eth
+                print bal["payload"][1]["created_at"], bal["payload"][1]["book"],bal["payload"][1]["last"]
+                eth = ethTmp
+
+            time.sleep(2)
 
 if __name__ == "__main__":
     main()
