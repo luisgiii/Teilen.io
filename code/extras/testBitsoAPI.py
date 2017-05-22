@@ -56,9 +56,31 @@ def CurrentFundsRequester():
     # Send request
     response = requests.get("https://api.bitso.com/v3/balance/",
     headers={"Authorization": auth_header})
-    #print response.text
+    print response.text
     json_data = json.loads(response.text)
     return json_data["success"], json_data["payload"]["balances"][2]["available"]
+
+def GetMethodTest():
+    print "Inside GET method test."
+    nonce =  str(int(round(time.time() * 1000)))
+    http_method = "GET"
+    request_path = "/v3/available_books/"
+    json_payload = ""
+
+    # Create signature
+    message = nonce+http_method+request_path+json_payload
+    #print message
+    signature = hmac.new(bitso_secret.encode('utf-8'),
+                                                message.encode('utf-8'),
+                                                hashlib.sha256).hexdigest()
+
+    # Build the auth header
+    auth_header = 'Bitso %s:%s:%s' % (bitso_key, nonce, signature)
+    # Send request
+    response = requests.get("https://api.bitso.com/v3/available_books/",
+    headers={"Authorization": auth_header})
+
+    print response.text
 
 def PostMethodTest():
     print "Inside POST method test."
@@ -131,8 +153,10 @@ def PlaceSellOrder(sellAmount):
 
 
 def main():
-    success, ethValue = CurrentFundsRequester()
-    print
+    #Ticker()
+    GetMethodTest()
+    #success, ethValue = CurrentFundsRequester()
+    #print
 
 if __name__ == "__main__":
     main()
