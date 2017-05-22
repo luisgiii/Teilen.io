@@ -150,8 +150,7 @@ def PlaceSellOrder(sellAmount):
     headers={"Authorization": auth_header}, json=json_payload)
 
     print response.text
-
-
+    
 def main():
     #Ticker()
     GetMethodTest()
