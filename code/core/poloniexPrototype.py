@@ -51,8 +51,14 @@ def main():
     convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto) 
     print "You will get approximately: " + convertedAmount + exchangeCrypto
     
-    # Perform a deposit to Teilen account.
+    # Provide a valid address to deposit exchange.
+    print "Provide a valid address to deposit your " + exchangeCrypto + "exchange:"
+    exchangeAddress = raw_input()
     
+    # Perform a deposit to Teilen account.
+    print "Please perform the deposit to the BTC Teilen address: "
+    TeilenBTCAddress = PoloniexTradingAPI("returnDepositAddresses")
+    print TeilenBTCAddress["BTC"]
     
 if __name__ == "__main__":
     main()
