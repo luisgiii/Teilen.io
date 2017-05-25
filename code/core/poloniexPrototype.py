@@ -62,23 +62,23 @@ def main():
     btcAddress = raw_input()
 
     # Perform a deposit to Teilen account.
+    start_timestamp = int(time.time())
     print "Please perform the deposit to the BTC Teilen address: "
-    #TeilenBTCAddress = PoloniexTradingAPI("returnDepositAddresses") #! This will be in a separate thread or file.
     depositValidation = False
     print teilenCryptoAddresses.teilenAddresses["BTC"]
+    end_timestamp = start_timestamp + 5 * 60 * 60
 
     while(depositValidation == False):
-        deposits = PoloniexTradingAPI("returnDepositsWithdrawals") #! This will be in a separate thread or file.
+        deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
         print deposits
-        
-        if deposists is not None:
+        if deposits is not None:
             for depositIdx in range(0, len(deposits["deposits"])):
                 if deposits["deposits"][depositIdx]["address"] == btcAddress and deposits["deposits"][depositIdx]["status"] == "COMPLETE":
                     print "[VALIDATED]: Deposit found and complete!"
                     depositValidation = True
 
         time.sleep(30) #Testing purposes only.
-
+    
     # Buy the 99% of the requested amount.
     #buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
     #amountBought = buyResult["resultingTrades"][0]["amount"]
