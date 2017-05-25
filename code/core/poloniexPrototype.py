@@ -35,7 +35,7 @@ def PoloniexTradingAPI(command, req={}):
 def calculateExchangeApproximate(amount, crypto):
     requiredCriptoValue = PoloniexTickerQuery("BTC_"+crypto) #! This will be in a separate thread or file.
     if requiredCriptoValue != None:
-        return maxAmount = round(amount / float(requiredCriptoValue), 8)
+        return requiredCriptoValue, round(amount / float(requiredCriptoValue), 8)
     else:
         return None
 
