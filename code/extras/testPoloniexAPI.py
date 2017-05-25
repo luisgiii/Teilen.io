@@ -4,6 +4,10 @@ https://poloniex.com/support/api/
 
 Already existent Python wrappers:
 https://github.com/s4w3d0ff/python-poloniex
+
+!# Known issue 1:
+    Does not work with IPs from Mexico.
+
 '''
 
 import urllib
