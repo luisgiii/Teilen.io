@@ -48,15 +48,15 @@ def PoloniexTradingAPI(command, req={}):
         print err
 
 def main():
-    requiredCriptoValue = PoloniexTickerQuery(availableCriptoArray[0])
+    requiredCriptoValue = PoloniexTickerQuery(availableCriptoArray[1])
     if requiredCriptoValue != None:
         print float(requiredCriptoValue)
 
     goldData = PoloniexTradingAPI("returnBalances")
-    print goldData["BTC"]
+    print float(goldData["BTC"])
 
-    #Buy some LSK using your available BTCs
-
+    #WARNING: Buy some LSK using your available BTCs
+    #PoloniexTradingAPI("buy",{"currencyPair":availableCriptoArray[1], "rate":requiredCriptoValue, "amount":goldData})
 
 if __name__ == "__main__":
     main()
