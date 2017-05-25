@@ -5,9 +5,9 @@ import time
 import hmac,hashlib
 import requests
 
-# API credentials
-poloniex_key = ""
-poloniex_secret = ""
+# API credentials for Teilen account
+poloniex_key = "0QTMEO93-V1JYUJ3G-8QAV2FRL-QSFT7TBY"
+poloniex_secret = "ad8a5be4995465ea2a0dfdda81e92c4125f19e0d0f505c4e205303fdb7bc0ffc08b03ec8df172ea800c7d4236f0de88d0a71e3eae47d18791e871a4abe3419a4"
 
 availableCriptoArray = ["BTC_ETH","BTC_LSK"]
 
