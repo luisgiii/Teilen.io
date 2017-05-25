@@ -35,7 +35,7 @@ def PoloniexTradingAPI(command, req={}):
 def calculateExchangeApproximate(amount, crypto):
     requiredCriptoValue = PoloniexTickerQuery("BTC_"+crypto) #! This will be in a separate thread or file.
     if requiredCriptoValue != None:
-        return maxAmount = round(amount / float(requiredCriptoValue), 8)
+        return requiredCriptoValue, maxAmount = round(amount / float(requiredCriptoValue), 8)
     else:
         return None
     
@@ -49,7 +49,7 @@ def main():
 
     # We convert the 99% BTC to the requested crypto and separate the comission from here.
     comission = float(float(btcAmount)*0.01)
-    convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto) 
+    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto) 
     print "You will get approximately: " + convertedAmount + exchangeCrypto
     
     # Provide a valid address to deposit exchange.
@@ -75,6 +75,15 @@ def main():
                 depositValidation = True
             
         time.sleep(30) #Testing purposes only.
-
+    
+    # Buy the 99% of the requested amount.
+    #buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
+    #amountBought = buyResult["resultingTrades"][0]["amount"]
+    #print amountBought
+    
+    # Withdraw the converted amount to the exchange address provided above.
+    #withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":amountBought, "address":exchangeAddress})
+    #print withdrawResult
+    
 if __name__ == "__main__":
     main()
