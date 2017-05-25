@@ -44,7 +44,7 @@ def PoloniexTradingAPI(command):
     try:
         ret = urllib2.urlopen(urllib2.Request('https://poloniex.com/tradingApi', encoded_data, headers))
         jsonRet = json.loads(ret.read())
-        print jsonRet
+        return jsonRet
     except urllib2.HTTPError as err:
         print err
 
@@ -53,7 +53,8 @@ def main():
     if requiredCriptoValue != None:
         print float(requiredCriptoValue)
 
-    PoloniexTradingAPI("returnBalances")
+    goldData = PoloniexTradingAPI("returnBalances")
+    print goldData["ETC"]
 
 if __name__ == "__main__":
     main()
