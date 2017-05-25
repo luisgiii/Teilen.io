@@ -25,14 +25,31 @@ def PoloniexTickerQuery(criptoAsset):
         print (response)
         json_data = json.loads(response.text)
         return json_data[criptoAsset]["last"]
+    else:
+        print response
 
-def PoloniexTradingAPI():
-    print 'space holder'
+def PoloniexTradingAPI(command):
+    req = {}
+    req['command'] = command
+    req['nonce'] = int(time.time()*1000)
+    encoded_data = urllib.urlencode(req)
+
+    sign = hmac.new(poloniex_secret, encoded_data, hashlib.sha512).hexdigest()
+    headers = {'Sign': sign, 'Key': poloniex_key}
+
+    try:
+        ret = urllib2.urlopen(urllib2.Request('https://poloniex.com/tradingApi', encoded_data, headers))
+        jsonRet = json.loads(ret.read())
+        print jsonRet
+    except urllib2.HTTPError as err:
+        print err
 
 def main():
     requiredCriptoValue = PoloniexTickerQuery(availableCriptoArray[0])
     if requiredCriptoValue != None:
         print float(requiredCriptoValue)
+
+    PoloniexTradingAPI("returnBalances")
 
 if __name__ == "__main__":
     main()
