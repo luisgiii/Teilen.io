@@ -38,6 +38,7 @@ def calculateExchangeApproximate(amount, crypto):
         return maxAmount = round(amount / float(requiredCriptoValue), 8)
     else:
         return None
+    
 def main():
     # User sets amount of BTC he wants to exchange.
     print "Enter the amount of BTC you want to exchange:"
@@ -55,18 +56,25 @@ def main():
     print "Provide a valid address to deposit your " + exchangeCrypto + "exchange:"
     exchangeAddress = raw_input()
     
+    # User provides BTC address to validate the deposit.
+    print "Provide your BTC address to validate the deposit: "
+    btcAddress = raw_input()
+    
     # Perform a deposit to Teilen account.
     print "Please perform the deposit to the BTC Teilen address: "
-    TeilenBTCAddress = PoloniexTradingAPI("returnDepositAddresses")
+    TeilenBTCAddress = PoloniexTradingAPI("returnDepositAddresses") #! This will be in a separate thread or file.
     depositValidation = False
     print TeilenBTCAddress["BTC"]
     
     while(!depositValidation):
-        deposits = PoloniexTradingAPI("returnDepositsWithdrawals")
+        deposits = PoloniexTradingAPI("returnDepositsWithdrawals") #! This will be in a separate thread or file.
+        print "[DEBUG]: " + deposits
         for depositIdx in range(0, len(deposits["deposits"])):
-            print deposits["deposits"][depositIdx]
+            if deposits["deposits"][depositIdx]["address"] == btcAddress and deposits["deposits"][depositIdx]["status"] == "COMPLETE":
+                print "[VALIDATED]: Deposit found and complete!"
+                depositValidation = True
             
         time.sleep(30) #Testing purposes only.
-        
+
 if __name__ == "__main__":
     main()
