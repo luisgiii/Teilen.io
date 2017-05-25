@@ -28,7 +28,7 @@ def PoloniexTickerQuery(criptoAsset):
     if response.status_code != 403 and response.status_code != 404:
         print (response)
         json_data = json.loads(response.text)
-        return json_data[criptoAsset]["last"]
+        return json_data[criptoAsset]["lowestAsk"]
     else:
         print response
 
@@ -55,8 +55,12 @@ def main():
     goldData = PoloniexTradingAPI("returnBalances")
     print float(goldData["BTC"])
 
-    #WARNING: Buy some LSK using your available BTCs
-    #PoloniexTradingAPI("buy",{"currencyPair":availableCriptoArray[1], "rate":requiredCriptoValue, "amount":goldData})
+    # Max amount you can get from all the asset you choosed.
+    maxAmount = round(float(goldData["BTC"]) / float(requiredCriptoValue), 8)
+    print maxAmount
+
+    #WARNING: Buy some LSK using ALL your available BTCs
+    PoloniexTradingAPI("buy",{"currencyPair":availableCriptoArray[1], "rate":requiredCriptoValue, "amount":maxAmount})
 
 if __name__ == "__main__":
     main()
