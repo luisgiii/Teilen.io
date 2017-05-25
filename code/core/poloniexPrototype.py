@@ -49,7 +49,7 @@ def main():
 
     # We convert the 99% BTC to the requested crypto and separate the comission from here.
     comission = float(float(btcAmount)*0.01)
-    convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto)
+    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto)
     print "You will get approximately: " + convertedAmount + exchangeCrypto
 
     # Provide a valid address to deposit exchange.
@@ -66,7 +66,7 @@ def main():
     depositValidation = False
     print TeilenBTCAddress["BTC"]
 
-    while(!depositValidation):
+    while(depositValidation == False):
         deposits = PoloniexTradingAPI("returnDepositsWithdrawals") #! This will be in a separate thread or file.
         print "[DEBUG]: " + deposits
         for depositIdx in range(0, len(deposits["deposits"])):
