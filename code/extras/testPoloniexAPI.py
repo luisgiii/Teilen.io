@@ -32,8 +32,7 @@ def PoloniexTickerQuery(criptoAsset):
     else:
         print response
 
-def PoloniexTradingAPI(command):
-    req = {}
+def PoloniexTradingAPI(command, req={}):
     req['command'] = command
     req['nonce'] = int(time.time()*1000)
     encoded_data = urllib.urlencode(req)
@@ -54,7 +53,7 @@ def main():
         print float(requiredCriptoValue)
 
     goldData = PoloniexTradingAPI("returnBalances")
-    print goldData["ETC"]
+    print goldData["BTC"]
 
 if __name__ == "__main__":
     main()
