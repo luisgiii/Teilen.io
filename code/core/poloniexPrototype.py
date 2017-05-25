@@ -38,7 +38,7 @@ def calculateExchangeApproximate(amount, crypto):
         return requiredCriptoValue, maxAmount = round(amount / float(requiredCriptoValue), 8)
     else:
         return None
-    
+
 def main():
     # User sets amount of BTC he wants to exchange.
     print "Enter the amount of BTC you want to exchange:"
@@ -49,23 +49,23 @@ def main():
 
     # We convert the 99% BTC to the requested crypto and separate the comission from here.
     comission = float(float(btcAmount)*0.01)
-    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto) 
+    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto)
     print "You will get approximately: " + convertedAmount + exchangeCrypto
-    
+
     # Provide a valid address to deposit exchange.
     print "Provide a valid address to deposit your " + exchangeCrypto + "exchange:"
     exchangeAddress = raw_input()
-    
+
     # User provides BTC address to validate the deposit.
     print "Provide your BTC address to validate the deposit: "
     btcAddress = raw_input()
-    
+
     # Perform a deposit to Teilen account.
     print "Please perform the deposit to the BTC Teilen address: "
     TeilenBTCAddress = PoloniexTradingAPI("returnDepositAddresses") #! This will be in a separate thread or file.
     depositValidation = False
     print TeilenBTCAddress["BTC"]
-    
+
     while(!depositValidation):
         deposits = PoloniexTradingAPI("returnDepositsWithdrawals") #! This will be in a separate thread or file.
         print "[DEBUG]: " + deposits
@@ -73,17 +73,17 @@ def main():
             if deposits["deposits"][depositIdx]["address"] == btcAddress and deposits["deposits"][depositIdx]["status"] == "COMPLETE":
                 print "[VALIDATED]: Deposit found and complete!"
                 depositValidation = True
-            
+
         time.sleep(30) #Testing purposes only.
-    
+
     # Buy the 99% of the requested amount.
     #buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
     #amountBought = buyResult["resultingTrades"][0]["amount"]
-    #print amountBought
-    
+    #print "[DEBUG] amountBought: " + amountBought
+
     # Withdraw the converted amount to the exchange address provided above.
     #withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":amountBought, "address":exchangeAddress})
-    #print withdrawResult
-    
+    #print "[DEBUG] withdrawResult: " withdrawResult
+
 if __name__ == "__main__":
     main()
