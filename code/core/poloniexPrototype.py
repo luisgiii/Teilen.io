@@ -58,7 +58,15 @@ def main():
     # Perform a deposit to Teilen account.
     print "Please perform the deposit to the BTC Teilen address: "
     TeilenBTCAddress = PoloniexTradingAPI("returnDepositAddresses")
+    depositValidation = False
     print TeilenBTCAddress["BTC"]
     
+    while(!depositValidation):
+        deposits = PoloniexTradingAPI("returnDepositsWithdrawals")
+        for depositIdx in range(0, len(deposits["deposits"])):
+            print deposits["deposits"][depositIdx]
+            
+        time.sleep(30) #Testing purposes only.
+        
 if __name__ == "__main__":
     main()
