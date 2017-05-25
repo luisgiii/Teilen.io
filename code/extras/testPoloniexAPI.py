@@ -55,5 +55,8 @@ def main():
     goldData = PoloniexTradingAPI("returnBalances")
     print goldData["BTC"]
 
+    #Buy some LSK using your available BTCs
+
+
 if __name__ == "__main__":
     main()
