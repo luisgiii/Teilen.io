@@ -86,7 +86,7 @@ def main():
     print "[DEBUG] amountBought: " + str(amountBought)
 
     # Check the transaction order to get actual value.
-    transactionOrder = PoloniexTradingAPI("returnTradeHistory", {"currencyPair":"BTC_"+exchangeCrypto)
+    transactionOrder = PoloniexTradingAPI("returnTradeHistory", {"currencyPair":"BTC_"+exchangeCrypto})
     for transactionIdx in range(0, len(transactionOrder)):
         if str(transactionOrder[transactionIdx]["orderNumber"]) == order:
             availableCryptoFromBuy = round((amountBought - float(transactionOrder[transactionIdx]["fee"])), 8)
