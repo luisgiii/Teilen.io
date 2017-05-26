@@ -77,11 +77,11 @@ def main():
                 depositValidation = True
 
         time.sleep(30) #Testing purposes only.
-    
+
     # Buy the 99% of the requested amount.
     buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
     amountBought = buyResult["resultingTrades"][0]["amount"]
-    order = str(buyResult["resultingTrades"][0]["orderNumber"])
+    order = str(buyResult["orderNumber"])
     print "[DEBUG] amountBought: " + str(amountBought)
 
     # Check the transaction order to get actual value.
