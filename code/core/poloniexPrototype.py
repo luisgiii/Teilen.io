@@ -80,16 +80,17 @@ def main():
 
     # Buy the 99% of the requested amount.
     buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
-    amountBought = buyResult["resultingTrades"][0]["amount"]
+    amountBought = round(float(convertedAmount)*.9975, 8)
     order = str(buyResult["orderNumber"])
     print "[DEBUG] order: " + order
-    print "[DEBUG] amountBought: " + str(amountBought)
 
     # Check the transaction order to get actual value.
-    transactionOrder = PoloniexTradingAPI("returnTradeHistory", {"currencyPair":"BTC_"+exchangeCrypto})
-    for transactionIdx in range(0, len(transactionOrder)):
-        if str(transactionOrder[transactionIdx]["orderNumber"]) == order:
-            availableCryptoFromBuy = round((float(amountBought) - float(transactionOrder[transactionIdx]["fee"])), 8)
+    #transactionOrder = PoloniexTradingAPI("returnTradeHistory", {"currencyPair":"BTC_"+exchangeCrypto})
+    #for transactionIdx in range(0, len(transactionOrder)):
+    #    if str(transactionOrder[transactionIdx]["orderNumber"]) == order:
+    #        availableCryptoFromBuy = round((float(amountBought) - float(transactionOrder[transactionIdx]["fee"])), 8)
+
+    availableCryptoFromBuy = amountBought
 
     # Withdraw the converted amount to the exchange address provided above.
     withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
