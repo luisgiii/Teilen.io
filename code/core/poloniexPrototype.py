@@ -50,7 +50,7 @@ def main():
 
     # We convert the 99% BTC to the requested crypto and separate the comission from here.
     comission = float(float(btcAmount)*0.01)
-    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto)
+    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.9875, exchangeCrypto)
     print "You will get approximately: " + str(convertedAmount) + " " + exchangeCrypto
 
     # Provide a valid address to deposit exchange.
@@ -71,22 +71,28 @@ def main():
     while(depositValidation == False):
         deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
         print deposits
-        if deposits is not None:
-            for depositIdx in range(0, len(deposits["deposits"])):
-                if deposits["deposits"][depositIdx]["address"] == btcAddress and deposits["deposits"][depositIdx]["status"] == "COMPLETE":
-                    print "[VALIDATED]: Deposit found and complete!"
-                    depositValidation = True
+        for depositIdx in range(0, len(deposits["deposits"])):
+            if deposits["deposits"][depositIdx]["status"] == "COMPLETE":
+                print "[VALIDATED]: Deposit found and complete!"
+                depositValidation = True
 
         time.sleep(30) #Testing purposes only.
     
     # Buy the 99% of the requested amount.
-    #buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
-    #amountBought = buyResult["resultingTrades"][0]["amount"]
-    #print "[DEBUG] amountBought: " + amountBought
+    buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
+    amountBought = buyResult["resultingTrades"][0]["amount"]
+    order = buyResult["resultingTrades"][0]["orderNumber"]
+    print "[DEBUG] amountBought: " + str(amountBought)
+
+    # Check the transaction order to get actual value.
+    transactionOrder = PoloniexTradingAPI("returnTradeHistory", {"start":start_timestamp,"end":end_timestamp})
+    for transactionIdx in range(0, len(transactionOrder)):
+        if transactionOrder[transactionIdx]["orderNumber"] is order:
+            availableCryptoFromBuy = round((amountBought - float(transactionOrder[transactionIdx]["fee"])), 8)
 
     # Withdraw the converted amount to the exchange address provided above.
-    #withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":amountBought, "address":exchangeAddress})
-    #print "[DEBUG] withdrawResult: " withdrawResult
+    withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
+    print "[DEBUG] withdrawResult: " + str(withdrawResult)
 
 if __name__ == "__main__":
     main()
