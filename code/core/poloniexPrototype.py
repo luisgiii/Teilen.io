@@ -89,7 +89,7 @@ def main():
     transactionOrder = PoloniexTradingAPI("returnTradeHistory", {"currencyPair":"BTC_"+exchangeCrypto})
     for transactionIdx in range(0, len(transactionOrder)):
         if str(transactionOrder[transactionIdx]["orderNumber"]) == order:
-            availableCryptoFromBuy = round((amountBought - float(transactionOrder[transactionIdx]["fee"])), 8)
+            availableCryptoFromBuy = round((float(amountBought) - float(transactionOrder[transactionIdx]["fee"])), 8)
 
     # Withdraw the converted amount to the exchange address provided above.
     withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
