@@ -78,8 +78,15 @@ def main():
 
         time.sleep(30) #Testing purposes only.
 
-    # Buy the the requested amount minus our commission.
-    buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
+    buyDone = False
+    # Buy the requested amount minus our commission.
+    while(buyDone == False):
+        buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
+        print buyResult
+        if buyResult != None:
+            buyDone = True
+        sleep.time(2)
+
     availableCryptoFromBuy = round(float(convertedAmount)*.9973, 8)
     order = str(buyResult["orderNumber"])
     orderOpen = True
