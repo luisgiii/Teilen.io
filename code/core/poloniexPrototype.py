@@ -57,10 +57,6 @@ def main():
     print "Provide a valid address to deposit your " + exchangeCrypto + "exchange:"
     exchangeAddress = raw_input()
 
-    # User provides BTC address to validate the deposit.
-    #print "Provide your BTC address to validate the deposit: "
-    #btcAddress = raw_input()
-
     # Perform a deposit to Teilen account.
     start_timestamp = int(time.time())
     print "Please perform the deposit to the BTC Teilen address: "
