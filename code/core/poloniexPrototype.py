@@ -88,7 +88,7 @@ def main():
     time.sleep(10)
 
     # Check if buy order is still open.
-    while(orderOpen == True)
+    while(orderOpen == True):
         checkOrder = PoloniexTradingAPI("returnOpenOrders",{"currencyPair":"BTC_"+exchangeCrypto})
         print checkOrder
         if len(checkOrder) > 0:
