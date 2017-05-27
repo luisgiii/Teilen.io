@@ -49,8 +49,7 @@ def main():
     exchangeCrypto = raw_input()
 
     # We convert the 99.5% BTC to the requested crypto and separate the comission from here.
-    comission = float(float(btcAmount)*0.005)
-    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.995, exchangeCrypto)
+    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.99, exchangeCrypto)
     print "You will get approximately: " + str(convertedAmount) + " " + exchangeCrypto
 
     # Provide a valid address to deposit exchange.
@@ -76,6 +75,7 @@ def main():
                 for depositIdx in range(0, len(deposits["deposits"])):
                     if deposits["deposits"][depositIdx]["status"] == "COMPLETE":
                         print "[VALIDATED]: Deposit found and complete!"
+                        receivedAmount = float(deposits["deposits"][depositIdx]["amount"])
                         depositValidation = True
 
                 time.sleep(30) #Testing purposes only.
@@ -83,15 +83,16 @@ def main():
 
         if state == 2:
             buyDone = False
+            amountForUser = round(receivedAmount * .995,8)
             # Buy the requested amount minus our commission.
             while(buyDone == False):
-                buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
+                buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":amountForUser})
                 print buyResult
                 if buyResult != None:
                     buyDone = True
                 time.sleep(2)
 
-            availableCryptoFromBuy = round(float(convertedAmount)*.99, 8)
+            availableCryptoFromBuy = round(amountForUser*.995, 8)
             order = str(buyResult["orderNumber"])
             orderOpen = True
             print "[DEBUG] order: " + order
