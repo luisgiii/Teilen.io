@@ -81,7 +81,7 @@ def main():
         print buyResult
         if buyResult != None:
             buyDone = True
-        sleep.time(2)
+        time.sleep(2)
 
     availableCryptoFromBuy = round(float(convertedAmount)*.9973, 8)
     order = str(buyResult["orderNumber"])
