@@ -64,53 +64,76 @@ def main():
     print teilenCryptoAddresses.teilenAddresses["BTC"]
     end_timestamp = start_timestamp + 5 * 60 * 60
 
-    while(depositValidation == False):
-        deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
-        print deposits
-        for depositIdx in range(0, len(deposits["deposits"])):
-            if deposits["deposits"][depositIdx]["status"] == "COMPLETE":
-                print "[VALIDATED]: Deposit found and complete!"
-                depositValidation = True
+    # Start state machine.
+    teilenRunning = True
+    state = 1
 
-        time.sleep(30) #Testing purposes only.
+    while(teilenRunning == True):
+        if state == 1:
+            while(depositValidation == False):
+                deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
+                print deposits
+                for depositIdx in range(0, len(deposits["deposits"])):
+                    if deposits["deposits"][depositIdx]["status"] == "COMPLETE":
+                        print "[VALIDATED]: Deposit found and complete!"
+                        depositValidation = True
 
-    buyDone = False
-    # Buy the requested amount minus our commission.
-    while(buyDone == False):
-        buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
-        print buyResult
-        if buyResult != None:
-            buyDone = True
-        time.sleep(2)
+            time.sleep(30) #Testing purposes only.
+            state = 2
 
-    availableCryptoFromBuy = round(float(convertedAmount)*.99, 8)
-    order = str(buyResult["orderNumber"])
-    orderOpen = True
-    print "[DEBUG] order: " + order
+        if state == 2:
+            buyDone = False
+            # Buy the requested amount minus our commission.
+            while(buyDone == False):
+                buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
+                print buyResult
+                if buyResult != None:
+                    buyDone = True
+                time.sleep(2)
 
-    time.sleep(10)
+            availableCryptoFromBuy = round(float(convertedAmount)*.99, 8)
+            order = str(buyResult["orderNumber"])
+            orderOpen = True
+            print "[DEBUG] order: " + order
+            state = 3
+            time.sleep(10)
 
-    # Check if buy order is still open.
-    while(orderOpen == True):
-        checkOrder = PoloniexTradingAPI("returnOpenOrders",{"currencyPair":"BTC_"+exchangeCrypto})
-        print checkOrder
-        if len(checkOrder) > 0:
-            for orderIdx in range(0, len(checkOrder)):
-                orderFound = False
-                if str(checkOrder[orderIdx]["orderNumber"]) == order:
-                    orderFound = True
+        if state == 3:
+            # Check if buy order is still open.
+            orderOpenCounter = 0
+            while(orderOpen == True):
+                orderOpenCounter+=1
+                checkOrder = PoloniexTradingAPI("returnOpenOrders",{"currencyPair":"BTC_"+exchangeCrypto})
+                print checkOrder
+                if len(checkOrder) > 0:
+                    for orderIdx in range(0, len(checkOrder)):
+                        orderFound = False
+                        if str(checkOrder[orderIdx]["orderNumber"]) == order:
+                            orderFound = True
 
-                if orderIdx == len(checkOrder)-1:
-                    if orderFound != True:
-                        orderOpen = False
-        else:
-            orderOpen = False
+                        if orderIdx == len(checkOrder)-1:
+                            if orderFound != True:
+                                orderOpen = False
+                else:
+                    orderOpen = False
+                time.sleep(10)
 
-        time.sleep(10)
+                if orderOpen == True and orderOpenCounter == 300:
+                    # Cancel buy order.
+                    cancelOrder = PoloniexTradingAPI("cancelOrder",{"orderNumber":order})
+                    if cancelOrder["success"] == 1:
+                        # perform a new buy
+                        state = 2
+            # Outside the while
+            state = 4
 
-    # Withdraw the converted amount to the exchange address provided above.
-    withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
-    print "[DEBUG] withdrawResult: " + str(withdrawResult)
+        if state == 4:
+            # Withdraw the converted amount to the exchange address provided above.
+            withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
+            print "[DEBUG] withdrawResult: " + str(withdrawResult)
+            teilenRunning = False
+
+    print "[DEBUG] Teilen: Your exchange was successful!"
 
 if __name__ == "__main__":
     main()
