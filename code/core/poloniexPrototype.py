@@ -64,12 +64,6 @@ def main():
     print teilenCryptoAddresses.teilenAddresses["BTC"]
     end_timestamp = start_timestamp + 5 * 60 * 60
 
-    #availableCryptoFromBuy = round(float(convertedAmount)*.9925, 8)
-    #print availableCryptoFromBuy
-    # Withdraw the converted amount to the exchange address provided above.
-    #withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
-    #print "[DEBUG] withdrawResult: " + str(withdrawResult)
-
     while(depositValidation == False):
         deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
         print deposits
