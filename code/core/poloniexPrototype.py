@@ -118,7 +118,7 @@ def main():
                     orderOpen = False
                 time.sleep(10)
 
-                if orderOpen == True and orderOpenCounter == 300:
+                if orderOpen == True and orderOpenCounter == 30:
                     # Cancel buy order.
                     cancelOrder = PoloniexTradingAPI("cancelOrder",{"orderNumber":order})
                     if cancelOrder["success"] == 1:
