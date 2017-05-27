@@ -49,7 +49,7 @@ def main():
     exchangeCrypto = raw_input()
 
     # We convert the 99.75% BTC to the requested crypto and separate the comission from here.
-    comission = float(float(btcAmount)*0.0025)
+    comission = float(float(btcAmount)*0.005)
     lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.995, exchangeCrypto)
     print "You will get approximately: " + str(convertedAmount) + " " + exchangeCrypto
 
@@ -63,6 +63,12 @@ def main():
     depositValidation = False
     print teilenCryptoAddresses.teilenAddresses["BTC"]
     end_timestamp = start_timestamp + 5 * 60 * 60
+
+    #availableCryptoFromBuy = round(float(convertedAmount)*.9925, 8)
+    #print availableCryptoFromBuy
+    # Withdraw the converted amount to the exchange address provided above.
+    #withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
+    #print "[DEBUG] withdrawResult: " + str(withdrawResult)
 
     while(depositValidation == False):
         deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
@@ -83,7 +89,7 @@ def main():
             buyDone = True
         time.sleep(2)
 
-    availableCryptoFromBuy = round(float(convertedAmount)*.9973, 8)
+    availableCryptoFromBuy = round(float(convertedAmount)*.99, 8)
     order = str(buyResult["orderNumber"])
     orderOpen = True
     print "[DEBUG] order: " + order
