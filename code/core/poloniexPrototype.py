@@ -48,7 +48,7 @@ def main():
     print "What crypto asset would you like to get?:"
     exchangeCrypto = raw_input()
 
-    # We convert the 99.75% BTC to the requested crypto and separate the comission from here.
+    # We convert the 99.5% BTC to the requested crypto and separate the comission from here.
     comission = float(float(btcAmount)*0.005)
     lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.995, exchangeCrypto)
     print "You will get approximately: " + str(convertedAmount) + " " + exchangeCrypto
