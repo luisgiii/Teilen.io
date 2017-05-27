@@ -93,10 +93,17 @@ def main():
         print checkOrder
         if len(checkOrder) > 0:
             for orderIdx in range(0, len(checkOrder)):
+                orderFound = False
                 if str(checkOrder[orderIdx]["orderNumber"]) == order:
-                    orderOpen = False
+                    orderFound = True
+
+                if orderIdx == len(checkOrder):
+                    if orderFound != True:
+                        orderOpen = False
         else:
             orderOpen = False
+
+        time.sleep(10)
 
     # Withdraw the converted amount to the exchange address provided above.
     withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
