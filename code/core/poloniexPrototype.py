@@ -100,7 +100,7 @@ def main():
                 if str(checkOrder[orderIdx]["orderNumber"]) == order:
                     orderFound = True
 
-                if orderIdx == len(checkOrder):
+                if orderIdx == len(checkOrder)-1:
                     if orderFound != True:
                         orderOpen = False
         else:
