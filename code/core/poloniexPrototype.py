@@ -48,9 +48,9 @@ def main():
     print "What crypto asset would you like to get?:"
     exchangeCrypto = raw_input()
 
-    # We convert the 99% BTC to the requested crypto and separate the comission from here.
-    comission = float(float(btcAmount)*0.01)
-    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.9875, exchangeCrypto)
+    # We convert the 99.75% BTC to the requested crypto and separate the comission from here.
+    comission = float(float(btcAmount)*0.0025)
+    lowestAsk, convertedAmount = calculateExchangeApproximate(float(btcAmount)*0.995, exchangeCrypto)
     print "You will get approximately: " + str(convertedAmount) + " " + exchangeCrypto
 
     # Provide a valid address to deposit exchange.
@@ -78,15 +78,25 @@ def main():
 
         time.sleep(30) #Testing purposes only.
 
-    # Buy the 99% of the requested amount.
+    # Buy the the requested amount minus our commission.
     buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":convertedAmount})
-    print buyResult["resultingTrades"][0]["amount"]
-    availableCryptoFromBuy = round(float(convertedAmount)*.9974, 8)
+    availableCryptoFromBuy = round(float(convertedAmount)*.9973, 8)
     order = str(buyResult["orderNumber"])
+    orderOpen = True
     print "[DEBUG] order: " + order
 
-    # Wait just in case.
-    time.sleep(30)
+    time.sleep(10)
+
+    # Check if buy order is still open.
+    while(orderOpen == True)
+        checkOrder = PoloniexTradingAPI("returnOpenOrders",{"currencyPair":"BTC_"+exchangeCrypto})
+        print checkOrder
+        if len(checkOrder) > 0:
+            for orderIdx in range(0, len(checkOrder)):
+                if str(checkOrder[orderIdx]["orderNumber"]) == order:
+                    orderOpen = False
+        else:
+            orderOpen = False
 
     # Withdraw the converted amount to the exchange address provided above.
     withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
