@@ -78,7 +78,7 @@ def main():
                         print "[VALIDATED]: Deposit found and complete!"
                         depositValidation = True
 
-            time.sleep(30) #Testing purposes only.
+                time.sleep(30) #Testing purposes only.
             state = 2
 
         if state == 2:
