@@ -95,7 +95,7 @@ def main():
                     buyDone = True
                 time.sleep(2)
 
-            availableCryptoFromBuy = round(amountForUser*.9975, 8)
+            availableCryptoFromBuy = amountForUser
             order = str(buyResult["orderNumber"])
             orderOpen = True
             print "[DEBUG] order: " + order
