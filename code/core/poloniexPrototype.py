@@ -83,7 +83,8 @@ def main():
 
         if state == 2:
             buyDone = False
-            amountForUser = round(receivedAmount * .995,8)
+            amountForUser = round((receivedAmount * .995)/float(lowestAsk), 8)
+            print amountForUser
             # Buy the requested amount minus our commission.
             while(buyDone == False):
                 buyResult = PoloniexTradingAPI("buy",{"currencyPair":"BTC_"+exchangeCrypto, "rate":lowestAsk, "amount":amountForUser})
