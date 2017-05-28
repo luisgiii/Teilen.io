@@ -122,7 +122,7 @@ def main():
                     orderOpen = False
                 time.sleep(10)
 
-                if orderOpen == True and orderOpenCounter == 30:
+                if orderOpen == True and orderOpenCounter >= 30:
                     # Cancel buy order.
                     cancelOrder = PoloniexTradingAPI("cancelOrder",{"orderNumber":order})
                     if cancelOrder["success"] == 1:
@@ -136,7 +136,7 @@ def main():
             withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
             print "[DEBUG] withdrawResult: " + str(withdrawResult)
             if "error" in withdrawResult:
-                availableCryptoFromBuy = availableCriptoFromBuy * 0.9995
+                availableCryptoFromBuy *= 0.9995
             else:
                 teilenRunning = False
 
