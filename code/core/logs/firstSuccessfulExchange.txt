@@ -1,0 +1,61 @@
+[ec2-user@ip-172-31-14-128 core]$ python poloniexPrototype.py 
+Enter the amount of BTC you want to exchange:
+0.01291626
+What crypto asset would you like to get?:
+LSK
+<Response [200]>
+You will get approximately: 25.59671991 LSK
+Provide a valid address to deposit your LSKexchange:
+11008077646323354949L
+Please perform the deposit to the BTC Teilen address: 
+18w9d4zgr5kuAfjEEWswPiGYSDKMF4Yie4
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [], u'withdrawals': []}
+{u'deposits': [{u'status': u'COMPLETE', u'timestamp': 1495935970, u'txid': u'26a2ef9586e51a0d651ebadfa22af09a47027780d23d0b18ca1199482ae70b23', u'currency': u'BTC', u'amount': u'0.01281626', u'confirmations': 1, u'address': u'18w9d4zgr5kuAfjEEWswPiGYSDKMF4Yie4'}], u'withdrawals': []}
+[VALIDATED]: Deposit found and complete!
+25.526821
+{u'orderNumber': u'41487364270', u'resultingTrades': []}
+[DEBUG] order: 41487364270
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[{u'orderNumber': u'41487364270', u'margin': 0, u'amount': u'25.52682100', u'rate': u'0.00049956', u'date': u'2017-05-28 01:49:55', u'total': u'0.01275217', u'type': u'buy', u'startingAmount': u'25.52682100'}]
+[]
+[DEBUG] withdrawResult: {u'response': u'Withdrew 25.46300395 LSK.'}
+[DEBUG] Teilen: Your exchange was successful!
