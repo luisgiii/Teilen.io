@@ -72,12 +72,14 @@ def main():
             while(depositValidation == False):
                 deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
                 print deposits
-                for depositIdx in range(0, len(deposits["deposits"])):
-                    if deposits["deposits"][depositIdx]["status"] == "COMPLETE":
-                        print "[VALIDATED]: Deposit found and complete!"
-                        receivedAmount = float(deposits["deposits"][depositIdx]["amount"])
-                        depositValidation = True
-
+                if deposits["error"] == "Connection timed out. Please try again.":
+                    state = 1
+                else:
+                    for depositIdx in range(0, len(deposits["deposits"])):
+                        if deposits["deposits"][depositIdx]["status"] == "COMPLETE":
+                            print "[VALIDATED]: Deposit found and complete!"
+                            receivedAmount = float(deposits["deposits"][depositIdx]["amount"])
+                            depositValidation = True
                 time.sleep(30) #Testing purposes only.
             state = 2
 
