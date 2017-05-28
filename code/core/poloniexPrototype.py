@@ -72,9 +72,9 @@ def main():
             while(depositValidation == False):
                 deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
                 print deposits
-                try:
-                    errorReturned = deposits.index("error")
-                except ValueError:
+                if "error" in deposits:
+                    errorReturned = deposits["error"]
+                else:
                     errorReturned = "no error"
                 if errorReturned == "Connection timed out. Please try again.":
                     continue
