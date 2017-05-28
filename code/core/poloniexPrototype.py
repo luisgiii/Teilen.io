@@ -73,10 +73,6 @@ def main():
                 deposits = PoloniexTradingAPI("returnDepositsWithdrawals", {"start":start_timestamp, "end":end_timestamp}) #! This will be in a separate thread or file.
                 print deposits
                 if "error" in deposits:
-                    errorReturned = deposits["error"]
-                else:
-                    errorReturned = "no error"
-                if errorReturned == "Connection timed out. Please try again.":
                     continue
                 else:
                     for depositIdx in range(0, len(deposits["deposits"])):
@@ -99,7 +95,7 @@ def main():
                     buyDone = True
                 time.sleep(2)
 
-            availableCryptoFromBuy = round(amountForUser*.995, 8)
+            availableCryptoFromBuy = round(amountForUser*.9975, 8)
             order = str(buyResult["orderNumber"])
             orderOpen = True
             print "[DEBUG] order: " + order
@@ -139,7 +135,10 @@ def main():
             # Withdraw the converted amount to the exchange address provided above.
             withdrawResult = PoloniexTradingAPI("withdraw",{"currency":exchangeCrypto, "amount":availableCryptoFromBuy, "address":exchangeAddress})
             print "[DEBUG] withdrawResult: " + str(withdrawResult)
-            teilenRunning = False
+            if "error" in withdrawResult:
+                availableCryptoFromBuy = availableCriptoFromBuy * 0.9995
+            else:
+                teilenRunning = False
 
     print "[DEBUG] Teilen: Your exchange was successful!"
 
