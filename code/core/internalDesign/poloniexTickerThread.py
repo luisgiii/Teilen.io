@@ -8,9 +8,6 @@ def PoloniexTickerCall(JSONfile):
     if response.status_code != 403 and response.status_code != 404:
         json_data = json.loads(response.text)
         json.dump(json_data, JSONfile)
-    else:
-        continue
-
 
 def main():
     tickerData = open("tickerJSON", "wb")
