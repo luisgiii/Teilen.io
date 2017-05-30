@@ -7,7 +7,7 @@ def PoloniexTickerCall(JSONfile):
     response = requests.get("https://poloniex.com/public?command=returnTicker")
     if response.status_code != 403 and response.status_code != 404:
         json_data = json.loads(response.text)
-        JSONfile.dump(json_data)
+        json.dump(json_data, JSONfile)
     else:
         continue
 
