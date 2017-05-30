@@ -10,10 +10,11 @@ def PoloniexTickerCall(JSONfile):
         json.dump(json_data, JSONfile)
 
 def main():
-    tickerData = open("tickerJSON", "wb")
+    #tickerData = open("tickerJSON", "wb")
     for repeat in range(0,2):
+        tickerData = open("tickerJSON", "wb")
         PoloniexTickerCall(tickerData)
         time.sleep(3)
-
+        tickerData.close()
 if __name__ == '__main__':
     main()
