@@ -8,18 +8,18 @@ for an easy access from the main Teilen class.
 
 import json
 
-def getDataFromTicker(crypto, json_param):
+def getDataFromTicker(cryptoPair):
     try:
         with open('tickerJSON', 'r') as ticker:
             cryptoData = json.load(ticker)
-            return cryptoData[crypto][json_param]
+            return cryptoData[crypto]["lowestAsk"]
     except:
         return None
 
-def getFeeFromCrypto(crypto, json_param):
+def getFeeFromCrypto(crypto):
     try:
         with open('feeJSON', 'r') as fee:
             feeData = json.load(fee)
-            return feeData[crypto][json_param]
+            return feeData[crypto]["txFee"]
     except:
         return None
