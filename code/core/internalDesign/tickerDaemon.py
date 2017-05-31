@@ -37,7 +37,7 @@ and the Ticker API call is performed every 3s.
 '''
 def main():
     while True:
-        whit open("tickerJSON", "wb") as tickerData:
+        with open("tickerJSON", "wb") as tickerData:
             PoloniexTickerCall(tickerData)
         time.sleep(3)
 
