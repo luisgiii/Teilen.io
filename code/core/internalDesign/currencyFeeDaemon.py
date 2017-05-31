@@ -1,4 +1,4 @@
-# apiBridge.py
+# currencyFeeDaemon.py
 # Teilen dev May 30th, 2017.
 
 '''
