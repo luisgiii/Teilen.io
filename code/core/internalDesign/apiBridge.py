@@ -12,7 +12,7 @@ def getDataFromTicker(cryptoPair):
     try:
         with open('tickerJSON', 'r') as ticker:
             cryptoData = json.load(ticker)
-            return cryptoData[crypto]["lowestAsk"]
+            return cryptoData[cryptoPair]["lowestAsk"]
     except:
         return None
 
