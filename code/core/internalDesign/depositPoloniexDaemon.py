@@ -30,15 +30,16 @@ def PoloniexTradingAPI(JSONfile, command, req={}):
         print err
 
 def main():
+    GMTcorrection = 18000
     errorGap = 5
     epochDay = (24*60*60)
     while True:
         actualDate = time.strftime("%d/%m/%Y")
-        startTimestamp = int(time.mktime(datetime.datetime.strptime(actualDate, \
-                      "%d/%m/%Y").timetuple())) - errorGap
+        startTimestamp = (int(time.mktime(datetime.datetime.strptime(actualDate, \
+                      "%d/%m/%Y").timetuple())) - GMTcorrection) - errorGap
 
         endTimestamp = startTimestamp + epochDay + (errorGap*2)
-        
+
         with open("depositPoloniexJSON","wb") as depositData:
             PoloniexTradingAPI(depositData, "returnDepositsWithdrawals", \
                                {"start":startTimestamp, "end":endTimestamp})

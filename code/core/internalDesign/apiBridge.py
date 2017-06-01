@@ -7,6 +7,7 @@ for an easy access from the main Teilen class.
 '''
 
 import json
+import etherBlockchainAPI as ethApi
 
 '''
 Function: getDataFromTicker(cryptoPair)
@@ -66,7 +67,6 @@ Return:
 
 This function purpose is to validate if there's an open order of the previously performed buy.
 '''
-
 def isOpenOrder(cryptoPair, orderNumber):
     try:
         with open('ordersJSON', 'r') as openOrder:
@@ -80,6 +80,7 @@ def isOpenOrder(cryptoPair, orderNumber):
                     return None
     except:
         return None
+
 '''
 Function: isDepositInPoloniex(txid)
 
@@ -109,6 +110,7 @@ def isDepositInPoloniex(txid):
                     return None
     except:
         return None
+
 '''
 Function: getAmountFromDeposit(txid)
 
@@ -136,3 +138,8 @@ def getAmountFromDeposit(txid):
                         return None
     except:
         return None
+
+'''
+'''
+def isDepositInBlockchain(senderAddress, txTimestamp):
+    return ethApi.getTxidFromBlock(senderAddress, txTimestamp)
