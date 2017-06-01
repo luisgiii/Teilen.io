@@ -23,3 +23,14 @@ def getFeeFromCrypto(crypto):
             return feeData[crypto]["txFee"]
     except:
         return None
+
+def getOpenOrder(cryptoPair, orderNumber):
+    try:
+        with open('ordersJSON', 'r') as openOrder:
+            orderData = json.load(openOrder)
+            if len(orderData[cryptoPair]) > 0:
+                return orderData[cryptoPair][orderNumber]
+            else:
+                return None
+    except:
+        return None
