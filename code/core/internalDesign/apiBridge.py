@@ -55,7 +55,7 @@ def getFeeFromCrypto(crypto):
         return None
 
 '''
-Function: getOpenOrder(cryptoPair, orderNumber)
+Function: isOpenOrder(cryptoPair, orderNumber)
 
 Parameters:
 * cryptoPair - currency Pair used for the exchange.
@@ -67,7 +67,7 @@ Return:
 This function purpose is to validate if there's an open order of the previously performed buy.
 
 '''    
-def getOpenOrder(cryptoPair, orderNumber):
+def isOpenOrder(cryptoPair, orderNumber):
     try:
         with open('ordersJSON', 'r') as openOrder:
             orderData = json.load(openOrder)
