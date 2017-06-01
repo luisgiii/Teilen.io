@@ -12,7 +12,10 @@ def getDataFromTicker(cryptoPair):
     try:
         with open('tickerJSON', 'r') as ticker:
             cryptoData = json.load(ticker)
-            return cryptoData[cryptoPair]["lowestAsk"]
+            if "error" in cryptoData:
+                return None
+            else:
+                return cryptoData[cryptoPair]["lowestAsk"]
     except:
         return None
 
@@ -20,17 +23,23 @@ def getFeeFromCrypto(crypto):
     try:
         with open('feeJSON', 'r') as fee:
             feeData = json.load(fee)
-            return feeData[crypto]["txFee"]
+            if "error" in feeData:
+                return None
+            else:
+                return feeData[crypto]["txFee"]
     except:
         return None
 
-def getOpenOrder(cryptoPair, orderNumber):
+def isOpenOrder(cryptoPair, orderNumber):
     try:
         with open('ordersJSON', 'r') as openOrder:
             orderData = json.load(openOrder)
-            if len(orderData[cryptoPair]) > 0:
-                return orderData[cryptoPair][orderNumber]
-            else:
+            if "error" in orderData:
                 return None
+            else:
+                if len(orderData[cryptoPair]) > 0:
+                    return orderData[cryptoPair][orderNumber]
+                else:
+                    return None
     except:
         return None
