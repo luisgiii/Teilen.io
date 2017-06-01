@@ -141,5 +141,5 @@ def getAmountFromDeposit(txid):
 
 '''
 '''
-def isDepositInBlockchain(senderAddress, txTimestamp):
-    return ethApi.getTxidFromBlock(senderAddress, txTimestamp)
+def isDepositInBlockchain(txTimestamp):
+    return ethApi.getTxidFromBlock(txTimestamp)

@@ -33,14 +33,13 @@ def convertDate2Timestamp(date):
                   "%Y-%m-%d %H:%M:%S").timetuple()))
     return timestamp - GMTcorrection #!GMT timestamp
 
-def getTxidFromBlock(senderAddress, txTimestamp):
+def getTxidFromBlock(txTimestamp):
     blockData = getLatestBlocks()
     for block in range(0, len(blockData["data"])):
         blockNumber = blockData["data"][block]["number"]
         txFromBlock = getBlockTx(blockNumber)
         for tx in range(0, len(txFromBlock["data"])):
-            if txFromBlock["data"][tx]["recipient"] == settings.eth_address and \
-               txFromBlock["data"][tx]["sender"] == sender:
+            if txFromBlock["data"][tx]["recipient"] == settings.eth_address:
                timestamp = convertDate2Timestamp(txFromBlock["data"][tx]["time"])
                if timestamp >= txTimestamp:
                    return txFromBlock["data"][tx]["hash"]
