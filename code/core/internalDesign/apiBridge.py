@@ -66,7 +66,11 @@ Return:
 
 This function purpose is to validate if there's an open order of the previously performed buy.
 
+<<<<<<< HEAD
 '''
+=======
+'''    
+>>>>>>> origin/Luis_AWStest
 def isOpenOrder(cryptoPair, orderNumber):
     try:
         with open('ordersJSON', 'r') as openOrder:
