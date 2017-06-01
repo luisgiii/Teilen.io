@@ -67,6 +67,10 @@ Return:
 This function purpose is to validate if there's an open order of the previously performed buy.
 '''
 
+<<<<<<< HEAD
+=======
+'''
+>>>>>>> origin/Luis_AWStest
 def isOpenOrder(cryptoPair, orderNumber):
     try:
         with open('ordersJSON', 'r') as openOrder:
@@ -78,5 +82,61 @@ def isOpenOrder(cryptoPair, orderNumber):
                     return orderData[cryptoPair][orderNumber]
                 else:
                     return None
+    except:
+        return None
+'''
+Function: isDepositInPoloniex(txid)
+
+Parameters:
+* txid - This is obtained from the blockchain.
+
+Return:
+Status "COMPLETE" when the deposit is found in the data.
+
+This function purpose is to let us know that the deposit is received, so
+we can proceed with the exchange process.
+'''
+def isDepositInPoloniex(txid):
+    try:
+        with open('depositPoloniexJSON', 'r') as deposit:
+            depositData = json.load(deposit)
+            if "error" in depositData:
+                return None
+            else:
+                if len(depositData["deposits"]) > 0:
+                    for depositIdx in range(0, len(depositData["deposits"])):
+                        if depositData["deposits"][depositIdx]["txid"] == txid:
+                            return depositData["deposits"][depositIdx]["status"]
+                        else:
+                            return None
+                else:
+                    return None
+    except:
+        return None
+'''
+Function: getAmountFromDeposit(txid)
+
+Parameters:
+* txid - This is obtained from the blockchain.
+
+Return:
+* Amount of crypto that arrived to Poloniex from the deposit.
+
+This function purpose is to extract the amount from the deposit performed
+by the user.
+
+'''
+def getAmountFromDeposit(txid):
+    try:
+        with open('depositPoloniexJSON', 'r') as deposit:
+            depositData = json.load(deposit)
+            if "error" in depositData:
+                return None
+            else:
+                for depositIdx in range(0, len(depositData["deposits"])):
+                    if depositData["deposits"][depositIdx]["txid"] == txid:
+                        return depositData["deposits"][depositIdx]["amount"]
+                    else:
+                        return None
     except:
         return None
