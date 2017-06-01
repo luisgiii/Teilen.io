@@ -31,7 +31,7 @@ def main():
     while True:
         with open("ordersJSON","wb") as ordersData:
             PoloniexTradingAPI(ordersData, "returnOpenOrders", {"currencyPair":"all"})
-        time.sleep(1)
+        time.sleep(2)
 
 if __name__ == '__main__':
     main()
