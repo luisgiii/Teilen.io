@@ -12,7 +12,7 @@ import time
 import hmac,hashlib
 import settings
 
-def PoloniexTradingAPI(command, req={}, JSONfile):
+def PoloniexTradingAPI(JSONfile, command, req={}):
     req['command'] = command
     req['nonce'] = int(time.time()*1000)
     encoded_data = urllib.urlencode(req)
@@ -30,7 +30,7 @@ def PoloniexTradingAPI(command, req={}, JSONfile):
 def main():
     while True:
         with open("ordersJSON","wb") as ordersData:
-            PoloniexTradingAPI("returnOpenOrders", {"currencyPair":"all"}, ordersData)
+            PoloniexTradingAPI(ordersData, "returnOpenOrders", {"currencyPair":"all"})
         time.sleep(1)
 
 if __name__ == '__main__':
