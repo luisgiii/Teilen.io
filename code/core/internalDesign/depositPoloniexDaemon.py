@@ -34,10 +34,10 @@ def main():
     epochDay = (24*60*60)
     while True:
         actualDate = time.strftime("%d/%m/%Y")
-        startTimestamp = int(time.mktime(datetime.datetime.strptime(actual_date, \
+        startTimestamp = int(time.mktime(datetime.datetime.strptime(actualDate, \
                       "%d/%m/%Y").timetuple())) - errorGap
 
-        endTimestamp = start_timestamp + epochDay + (errorGap*2)
+        endTimestamp = startTimestamp + epochDay + (errorGap*2)
         
         with open("depositPoloniexJSON","wb") as depositData:
             PoloniexTradingAPI(depositData, "returnDepositsWithdrawals", \
